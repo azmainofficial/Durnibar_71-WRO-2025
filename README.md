@@ -1,7 +1,7 @@
 # 🇧🇩 Durnibar_71 World Robot Olympiad 2025 Future Engineers 🇧🇩
 
 This repository contains our work for the **WRO Future Engineers** category.  
-We are building an **autonomous car** using **ROS, Arduino, and Jetson Nano**.
+We are building an **Autonomous Car** using **Lidar, Computer Vision, Arduino nano, and Jetson Nano Dev Kit B01**.
 
 ---
 
