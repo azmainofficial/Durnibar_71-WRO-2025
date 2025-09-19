@@ -32,7 +32,7 @@ By carrying the name **Durnibar_71**, we honor that history and commemorate the 
 
 ---
 
-# 📌 Table of Contents
+## 📌 Table of Contents
 - [🚙 Overview](#-overview)
 - [👥 Team Introduction & Information](#-team-introduction--information)
 - [📝 Project Description](#-project-description)
