@@ -60,7 +60,7 @@ Altogether, **Durnibar_71** represents an **indomitable and competition-ready pl
 
 ---
 
-## Team Introduction & Team Information
+## 👥 Team Introduction & Information
 <table>
   <tr>
     <td align="center" width="300px" style="border: 2px solid #4CAF50; border-radius: 10px; padding: 10px;">
@@ -77,8 +77,11 @@ Altogether, **Durnibar_71** represents an **indomitable and competition-ready pl
     </td>
   </tr>
 </table>
+
 ---
-## Project Description
+
+
+## 📝 Project Description
 Describe your project here...
 
 ## Hardware Used
