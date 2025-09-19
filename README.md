@@ -108,7 +108,7 @@ The challenge is to design a system that can **sense, process, and act** efficie
 ## 🧩 Components & Hardware
 
 | Component | Description | Specifications | Purpose | Image |
-|-----------|-------------|----------------|---------|-------|
+|-----------|-------------|-------------|---------|----------|
 | **NVIDIA Jetson Nano** | Central processing unit handling high-level computations, including image processing and decision-making | Quad-core ARM Cortex-A57 CPU, 128-core Maxwell GPU, 4GB LPDDR4 RAM, Ubuntu-based OS | Executes ROS nodes, processes camera inputs, manages autonomous navigation algorithms |  <img src="media/JetsonNano.png" width="80"> NVIDIA Jetson Nano |
 | **Raspberry Pi Camera V2.1** | Provides real-time video feed for object detection and lane tracking | 8MP Sony IMX219 sensor, 1080p30/720p60/640x480p90 video modes | Captures visual data for Jetson Nano processing |
 | **MPU6050 (Gyroscope + Accelerometer)** | Measures robot orientation and motion | 3-axis gyroscope, 3-axis accelerometer, I²C interface | Provides orientation data for navigation and stability |
