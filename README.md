@@ -30,7 +30,18 @@ By carrying the name **Durnibar_71**, we honor that history and commemorate the 
 
 ✨ Thank you, everyone, for standing with us in this mission. Together, we move forward with the spirit of **Durnibar_71** — unstoppable, unbreakable, indomitable.  
 
+---
 
+## 📌 Table of Contents
+- [Overview](#overview)
+- [Team Introduction & Team Information](#team-introduction--team-information)
+- [Project Description](#project-description)
+- [Hardware Used](#hardware-used)
+- [Software & Libraries](#software--libraries)
+- [Competition Challenges](#competition-challenges)
+- [Spoilers](#spoilers)
+
+---
 ## 🚙 Overview
 Our self-driving vehicle prototype, developed for the **WRO Future Engineers 2025** competition, is a fully autonomous robotic system that merges **AI-based decision-making** with precise embedded hardware control.  
 
@@ -47,21 +58,10 @@ All functions are distributed between the **Jetson Nano** (core AI/vision algori
 
 Altogether, **Durnibar_71** represents an **indomitable and competition-ready platform**, combining embedded intelligence, compact hardware design, and robust autonomy.
 
-
-
-## 📌 Table of Contents
-- [Overview](#overview)
-- [Team Introduction & Team Information](#team-introduction--team-information)
-- [Project Description](#project-description)
-- [Hardware Used](#hardware-used)
-- [Software & Libraries](#software--libraries)
-- [Competition Challenges](#competition-challenges)
-- [Spoilers](#spoilers)
-
 ---
 
-## Overview
-Write your overview here...
+
+
 
 ## Team Introduction & Team Information
 Introduce your team here...
