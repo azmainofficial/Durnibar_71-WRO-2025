@@ -1,4 +1,4 @@
-# 🛠️ Durnibar_71 🛠️ WRO-2025 Future Engineers
+# WRO-2025 Future Engineers 🛠️ Durnibar_71 🛠️ 
 
 <p align="center">
   <img src="media/Banner.png" alt="Durnibar_71 Banner" width="100%"/>
