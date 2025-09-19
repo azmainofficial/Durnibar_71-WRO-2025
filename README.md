@@ -10,7 +10,7 @@ We are building an **Autonomous Car** using **Lidar, Computer Vision, Arduino na
 ---
 
 ## 👥 Team - Durnibar_71
-- **Azmain Shak Rubayed** – Team Leader 
+- **Azmain Shak Rubayed** – Team Leader, Hardware Developer || 📧 [azmainofficial@gmail.com](mailto:mdd518969@gmail.com)
 - **Mohit Hasan** - Primary Software Developer
 ---
 
