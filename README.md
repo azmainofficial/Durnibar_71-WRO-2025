@@ -1,6 +1,8 @@
+<p align="center">
+  <span style="font-size:25px; font-weight:bold;">🛠️ Durnibar_71 🛠️ WRO-2025 Future Engineers</span>
+</p>
 
 <p align="center">
-  # 🛠️ Durnibar_71 🛠️ WRO-2025 Future Engineers 
   <img src="media/Banner.png" alt="Durnibar_71 Banner" width="100%"/>
 </p>
 
