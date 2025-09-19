@@ -31,6 +31,39 @@ By carrying the name **Durnibar_71**, we honor that history and commemorate the 
 ✨ Thank you, everyone, for standing with us in this mission. Together, we move forward with the spirit of **Durnibar_71** — unstoppable, unbreakable, indomitable.  
 
 
+## 📌 Table of Contents
+- [Overview](#overview)
+- [Team Introduction & Team Information](#team-introduction--team-information)
+- [Project Description](#project-description)
+- [Hardware Used](#hardware-used)
+- [Software & Libraries](#software--libraries)
+- [Competition Challenges](#competition-challenges)
+- [Spoilers](#spoilers)
+
+---
+
+## Overview
+Write your overview here...
+
+## Team Introduction & Team Information
+Introduce your team here...
+
+## Project Description
+Describe your project here...
+
+## Hardware Used
+List your hardware here...
+
+## Software & Libraries
+List your software/libraries here...
+
+## Competition Challenges
+Talk about your challenges here...
+
+## Spoilers
+Add spoilers or extras here...
+
+
 ## 📂 Repo Structure
 - `docs/` → Reports, research, presentations
 - `hardware/` → CAD designs, wiring diagrams
