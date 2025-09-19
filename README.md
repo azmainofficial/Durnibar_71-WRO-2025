@@ -91,7 +91,19 @@ Altogether, **Durnibar_71** represents an **indomitable and competition-ready pl
 
 
 ## 📝 Project Description
-Describe your project here...
+
+### 💡 Problem Statement
+How can a robot dynamically avoid both **visible and invisible obstacles** in real-time using **multi-sensor fusion**?  
+
+The challenge is to design a system that can **sense, process, and act** efficiently in dynamic environments, integrating inputs from IMU, compass, camera, and other sensors to make split-second decisions while navigating autonomously.
+
+### 🎯 Goals
+- Implement **real-time obstacle detection and avoidance** using multiple sensors (MPU6050, QMC5883L, Raspberry Pi Camera).  
+- Achieve **smooth navigation and path planning** using sensor fusion and AI algorithms on the Jetson Nano.  
+- Enable **Arduino Nano** to handle low-level actuation and immediate response while syncing with the Jetson Nano.  
+- Build a **modular and scalable robot architecture** that can adapt to changing track conditions.  
+- Demonstrate a **robust autonomous system** suitable for WRO Future Engineers competition tasks.
+
 
 ## Hardware Used
 List your hardware here...
