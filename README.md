@@ -60,12 +60,24 @@ Altogether, **Durnibar_71** represents an **indomitable and competition-ready pl
 
 ---
 
-
-
-
 ## Team Introduction & Team Information
-Introduce your team here...
-
+<table>
+  <tr>
+    <td align="center" width="300px" style="border: 2px solid #4CAF50; border-radius: 10px; padding: 10px;">
+      <img src="media/team/AzmainShakRubayed.jpg" alt="Azmain Shak Rubayed" width="120" style="border-radius: 50%;"/><br><br>
+      <b>Azmain Shak Rubayed</b><br>
+      <i>Team Leader, Hardware Developer</i><br>
+      📧 <a href="mailto:azmiansheikh.nub@gmail.com">azmiansheikh.nub@gmail.com</a>
+    </td>
+    <td align="center" width="300px" style="border: 2px solid #4CAF50; border-radius: 10px; padding: 10px;">
+      <img src="media/team/MohitHasan.jpg" alt="Mohit Hasan" width="120" style="border-radius: 50%;"/><br><br>
+      <b>Mohit Hasan</b><br>
+      <i>Software Developer</i><br>
+      📧 <a href="mailto:mohithasan.nub@gmail.com">mohithasan.nub@gmail.com</a>
+    </td>
+  </tr>
+</table>
+---
 ## Project Description
 Describe your project here...
 
