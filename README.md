@@ -14,6 +14,23 @@ We are building an **Autonomous Car** using **Lidar, Computer Vision, Arduino na
 - **Mohit Hasan** - Software Developer || [mohithasan.nub@gmail.com](mailto:azmiansheikh.nub@gmail.com)
 ---
 
+
+## 🌟 The Meaning Behind "Durnibar_71"
+
+> *"If the will to win is strong, then any goal can be achieved."*  
+
+This is our **first participation in WRO**, and ever since we began working on this project, we have felt an **indomitable desire** to complete it. That is why we chose the name **"Durnibar"** *(Indomitable / Unstoppable)* — it reflects our relentless effort to give our absolute best, pushing beyond our current limits despite the challenges we faced.  
+
+Every step of this journey has been difficult. We did not have adequate support, so we had to start from scratch and gather every resource on our own. This struggle itself embodies the true spirit of **Durnibar**, a determination to never give up.  
+
+Now, why the **'71**?  
+It represents the spirit of the **Bangladesh Liberation War of 1971**. Our independence was achieved not with abundant resources, but with an **unbreakable willpower and focus**. At that time, we were a nation decades behind the rest of the world, yet we shaped our own destiny.  
+
+By carrying the name **Durnibar_71**, we honor that history and commemorate the indomitable willpower of our nation. Just as the people of ’71 stood unstoppable in their pursuit of freedom, we carry the same spirit forward in our journey — in robotics, innovation, and beyond.  
+
+✨ Thank you, everyone, for standing with us in this mission. Together, we move forward with the spirit of **Durnibar_71** — unstoppable, unbreakable, indomitable.  
+
+
 ## 📂 Repo Structure
 - `docs/` → Reports, research, presentations
 - `hardware/` → CAD designs, wiring diagrams
