@@ -105,8 +105,20 @@ The challenge is to design a system that can **sense, process, and act** efficie
 - Demonstrate a **robust autonomous system** suitable for WRO Future Engineers competition tasks.
 
 
-## Hardware Used
-List your hardware here...
+## 🧩 Components & Hardware
+
+| Component | Description | Specifications | Purpose |
+|-----------|-------------|----------------|---------|
+| **NVIDIA Jetson Nano** | Central processing unit handling high-level computations, including image processing and decision-making | Quad-core ARM Cortex-A57 CPU, 128-core Maxwell GPU, 4GB LPDDR4 RAM, Ubuntu-based OS | Executes ROS nodes, processes camera inputs, manages autonomous navigation algorithms |
+| **Raspberry Pi Camera V2.1** | Provides real-time video feed for object detection and lane tracking | 8MP Sony IMX219 sensor, 1080p30/720p60/640x480p90 video modes | Captures visual data for Jetson Nano processing |
+| **MPU6050 (Gyroscope + Accelerometer)** | Measures robot orientation and motion | 3-axis gyroscope, 3-axis accelerometer, I²C interface | Provides orientation data for navigation and stability |
+| **QMC5883L (Magnetometer)** | Measures magnetic field to determine heading | 3-axis magnetometer, I²C interface | Assists in compass heading determination |
+| **Arduino Nano** | Microcontroller for low-level motor control and sensor interfacing | ATmega328P, 14 digital I/O pins, 8 analog inputs, 5V operating voltage | Interfaces with sensors and motor drivers to control movement |
+| **MG996R Servo Motor** | Provides steering control | Torque: 9.4 kg·cm, Operating voltage: 4.8–6.8V, Speed: 0.2s/60° | Adjusts the robot's steering mechanism |
+| **BTS7960 Motor Driver** | Drives robot wheels via DC motors | Dual H-Bridge, 5.5–40V operating voltage, Continuous current: 43A | Controls speed and direction of the robot |
+| **1000mAh LiPo Battery** | Powers the robot | Voltage: 3.7V, Capacity: 1000mAh, Discharge rate: 25C | Provides portable power to the robot |
+| **Custom PCB** | Houses circuit components and connections | Custom layout for all components | Ensures reliable electrical connections and compact design |
+
 
 ## Software & Libraries
 List your software/libraries here...
