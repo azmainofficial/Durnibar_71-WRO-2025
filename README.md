@@ -1,5 +1,5 @@
-<p align="center">
-  <span style="font-size:25px; font-weight:bold;">🛠️ Durnibar_71 🛠️ WRO-2025 Future Engineers</span>
+<p align="center" style="font-size:55px; font-weight:bold;">
+  🛠️ Durnibar_71 🛠️ WRO-2025 Future Engineers
 </p>
 
 <p align="center">
