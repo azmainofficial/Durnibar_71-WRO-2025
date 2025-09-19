@@ -32,14 +32,14 @@ By carrying the name **Durnibar_71**, we honor that history and commemorate the 
 
 ---
 
-## 📌 Table of Contents
-- [Overview](#overview)
-- [Team Introduction & Team Information](#team-introduction--team-information)
-- [Project Description](#project-description)
-- [Hardware Used](#hardware-used)
-- [Software & Libraries](#software--libraries)
-- [Competition Challenges](#competition-challenges)
-- [Spoilers](#spoilers)
+# 📌 Table of Contents
+- [🚙 Overview](#-overview)
+- [👥 Team Introduction & Information](#-team-introduction--information)
+- [📝 Project Description](#-project-description)
+- [🔧 Hardware Used](#-hardware-used)
+- [💻 Software & Libraries](#-software--libraries)
+- [🏆 Competition Challenges](#-competition-challenges)
+- [⚠️ Spoilers](#-spoilers)
 
 ---
 ## 🚙 Overview
