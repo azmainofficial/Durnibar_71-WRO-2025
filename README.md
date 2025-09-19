@@ -1,6 +1,5 @@
 # 🛠️ Durnibar_71 🛠️ WRO-2025 Future Engineers
 
-
 <p align="center">
   <img src="media/Banner.png" alt="Durnibar_71 Banner" width="100%"/>
 </p>
@@ -8,6 +7,11 @@
 This repository contains our work for the **WRO Future Engineers** category.  
 We are building an **Autonomous Car** using **Lidar, Computer Vision, Arduino nano, and Jetson Nano Dev Kit B01**.
 
+---
+
+## 👥 Team - Durnibar_71
+- **Azmain Shak Rubayed** – Team Leader 
+- **Mohit Hasan** - Primary Software Developer
 ---
 
 ## 📂 Repo Structure
@@ -30,10 +34,7 @@ We are building an **Autonomous Car** using **Lidar, Computer Vision, Arduino na
 
 ---
 
-## 👥 Team
-- **Azmain Shak Rubayed** – Team Leader 
-- **Mohit Hasan** - Primary Software Developer
----
+
 
 ## 📜 License
 This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
