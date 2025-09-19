@@ -31,6 +31,24 @@ By carrying the name **Durnibar_71**, we honor that history and commemorate the 
 ✨ Thank you, everyone, for standing with us in this mission. Together, we move forward with the spirit of **Durnibar_71** — unstoppable, unbreakable, indomitable.  
 
 
+## 🚙 Overview
+Our self-driving vehicle prototype, developed for the **WRO Future Engineers 2025** competition, is a fully autonomous robotic system that merges **AI-based decision-making** with precise embedded hardware control.  
+
+The platform is powered by a **Jetson Nano**, serving as the brain for vision and high-level processing, while an **Arduino Nano** handles real-time actuation and sensor management through custom firmware. Sensor data from the **MPU6050 (IMU)** and **QMC5883L (Compass)** is transmitted via serial communication, enabling accurate orientation tracking, drift correction, and smooth navigation.  
+
+The system integrates:  
+- **Raspberry Pi Camera v2.1** for image capture and object detection.  
+- **MG996R servo motor** and **BTS7960 motor driver** for steering and propulsion control.  
+- **1.3" OLED display**, **LED indicators**, **buzzer**, and **3 control buttons** for debugging and feedback.  
+
+Structurally, the vehicle features a **custom PCB** for streamlined connections, alongside a **self-designed chassis**, built for optimal component placement and balance. Power is delivered through a **1000 mAh LiPo battery**, ensuring lightweight mobility and sufficient runtime for competition tasks.  
+
+All functions are distributed between the **Jetson Nano** (core AI/vision algorithms) and the **Arduino Nano** (low-level hardware control), communicating through **PWM, UART, and I²C protocols**. This modular and efficient design ensures the vehicle can **adapt dynamically to track environments**, while maintaining precise actuation and reliable decision-making.  
+
+Altogether, **Durnibar_71** represents an **indomitable and competition-ready platform**, combining embedded intelligence, compact hardware design, and robust autonomy.
+
+
+
 ## 📌 Table of Contents
 - [Overview](#overview)
 - [Team Introduction & Team Information](#team-introduction--team-information)
