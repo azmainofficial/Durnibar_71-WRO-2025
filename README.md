@@ -59,13 +59,19 @@ All functions are distributed between the **Jetson Nano** (core AI/vision algori
 Altogether, **Durnibar_71** represents an **indomitable and competition-ready platform**, combining embedded intelligence, compact hardware design, and robust autonomy.
 
 ## 📂 Repo Structure
-- `docs/` → Reports, research, presentations
-- `hardware/` → CAD designs, wiring diagrams
-- `firmware/` → Arduino / ESP32 / STM32 codes
-- `software/` → ROS, Python, AI/ML, Jetson Nano code
-- `simulations/` → Gazebo, RViz, CARLA setups
-- `datasets/` → Training & test datasets
-- `media/` → Images, videos, project logo
+
+- [`media/`](./media) → Images, GIFs, project assets  
+- [`models/`](./models) → 3D models, CAD files  
+- [`schematic/`](./schematic) → Circuit diagrams, PCB layouts  
+- [`software-setup/`](./software-setup) → Installation guides, environment setup  
+- [`src/`](./src) → Source code (control, navigation, AI/ML)  
+- [`t-photos/`](./t-photos) → Team photos  
+- [`v-photos/`](./v-photos) → Vehicle photos  
+- [`videos/`](./videos) → Project demo videos  
+
+📜 [`LICENSE`](./LICENSE) → License information  
+📖 [`README.md`](./README.md) → Project documentation
+
 
 ---
 
