@@ -7,7 +7,7 @@ Each part has both a **3D preview (.stl)** and an **animated render (.gif)** for
 
 ## 🛞 Wheel Design
 <p align="center">
-  <img src="./Durniabr_71_Wheels.gif" alt="Wheel Preview" width="60%"/>
+  <img src="./Durniabr_71_Wheels.gif" alt="Wheel Preview" width="40%"/>
 </p>
 
 - File: [Durniabr_71_Wheels.stl](./Durniabr_71_Wheels.stl)  
@@ -17,7 +17,7 @@ Each part has both a **3D preview (.stl)** and an **animated render (.gif)** for
 
 ## 🏎️ Base Frame
 <p align="center">
-  <img src="./Durnibar_71_Base.gif" alt="Base Preview" width="60%"/>
+  <img src="./Durnibar_71_Base.gif" alt="Base Preview" width="40%"/>
 </p>
 
 - File: [Durnibar_71_Base.stl](./Durnibar_71_Base.stl)  
@@ -27,7 +27,7 @@ Each part has both a **3D preview (.stl)** and an **animated render (.gif)** for
 
 ## 🔩 Wheel Holder
 <p align="center">
-  <img src="./Durnibar_71_Wheel_holder.gif" alt="Wheel Holder Preview" width="60%"/>
+  <img src="./Durnibar_71_Wheel_holder.gif" alt="Wheel Holder Preview" width="40%"/>
 </p>
 
 - File: [Durnibar_71_Wheel_holder.stl](./Durnibar_71_Wheel_holder.stl)  
