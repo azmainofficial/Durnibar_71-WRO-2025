@@ -1,46 +1,13 @@
+#!/usr/bin/env python3
+
 import serial
-from rplidar import RPLidar
+import serial.tools.list_ports
+from rplidar import RPLidar, RPLidarException
 import time
-
-# --- Kalman Filter Class ---
-class KalmanFilter:
-    """A Kalman Filter for fusing IMU data (gyro and magnetometer)."""
-    def __init__(self, Q_angle, Q_bias, R_measure):
-        self.Q_angle = Q_angle
-        self.Q_bias = Q_bias
-        self.R_measure = R_measure
-        self.angle = 0.0
-        self.bias = 0.0
-        self.P = [[0.0, 0.0], [0.0, 0.0]]
-        self.last_time = time.time() # Initialize last_time to avoid errors
-
-    def filter(self, new_angle, new_rate, dt):
-        """Updates the filter with new sensor data."""
-        # Step 1: Prediction
-        self.angle += dt * (new_rate - self.bias)
-        self.P[0][0] += dt * (dt * self.P[1][1] - self.P[0][1] - self.P[1][0] + self.Q_angle)
-        self.P[0][1] -= dt * self.P[1][1]
-        self.P[1][0] -= dt * self.P[1][1]
-        self.P[1][1] += self.Q_bias * dt
-        
-        # Step 2: Update (Correction)
-        S = self.P[0][0] + self.R_measure
-        K = [self.P[0][0] / S, self.P[1][0] / S]
-        y = new_angle - self.angle
-        
-        self.angle += K[0] * y
-        self.bias += K[1] * y
-        
-        P00_temp = self.P[0][0]
-        P01_temp = self.P[0][1]
-        
-        self.P[0][0] -= K[0] * P00_temp
-        self.P[0][1] -= K[0] * P01_temp
-        self.P[1][0] -= K[1] * P00_temp
-        # Corrected typo: P11_temp was not defined
-        self.P[1][1] -= K[1] * P01_temp
-
-        return self.angle
+import sys
+import argparse
+import re
+import math
 
 # --- PID Controller Class ---
 class PIDController:
@@ -51,10 +18,9 @@ class PIDController:
         self.kd = kd
         self.last_error = 0
         self.integral = 0
-        self.integral_limit = 10 
+        self.integral_limit = 10
 
     def calculate_output(self, error):
-        """Calculates the PID output based on the current error."""
         proportional = self.kp * error
         self.integral += error
         self.integral = max(-self.integral_limit, min(self.integral, self.integral_limit))
@@ -62,156 +28,155 @@ class PIDController:
         derivative = self.kd * (error - self.last_error)
         self.last_error = error
         return proportional + integral_term + derivative
+    
+    def reset(self):
+        """Resets the integral and last_error terms."""
+        self.integral = 0
+        self.last_error = 0
 
-# --- Sensor Data Parsing ---
+# --- Utility functions ---
 def parse_sensor_data(data):
-    """Parses a string of serial data into a dictionary of sensor values."""
+    """
+    Parses a string of serial data into a dictionary of sensor values.
+    Example input: "H:123.45"
+    """
     values = {}
-    parts = data.strip().split(',')
-    for part in parts:
+    parts = data.strip().split(':')
+    if len(parts) == 2 and parts[0] == 'H':
         try:
-            key, val = part.split(':')
-            values[key] = float(val)
+            values['H'] = float(parts[1])
         except ValueError:
             pass
     return values
 
-# --- Main Script ---
-def main():
-    lidar = None
-    arduino_serial = None
-    
-    # Initialize PID controller parameters
-    KP = 1.5
-    KI = 0.01
-    KD = 0.5
-    SERVO_CENTER_ANGLE = 110
-    SERVO_MAX_ADJUSTMENT = 30 # SETTING MAX STEERING DIFFERENCE TO 30 DEGREES
-    
-    # Initialize controllers
-    pid_controller = PIDController(kp=KP, ki=KI, kd=KD)
-    kalman_filter = KalmanFilter(Q_angle=0.001, Q_bias=0.003, R_measure=0.03)
-    
-    # Lap counting variables
-    lap_count = 0
-    turn_count = 0
-    last_fused_heading = 0.0
-    turn_threshold = 45 # Degrees change to register a turn
+def safe_write(serial_conn, cmd):
+    """Write safely to serial without crashing."""
+    if serial_conn and serial_conn.is_open:
+        try:
+            serial_conn.write(cmd.encode("utf-8"))
+        except Exception:
+            pass
 
-    # Serial port configuration
-    # NOTE: You may need to swap these ports depending on your setup
-    ARDUINO_SERIAL_PORT = '/dev/ttyUSB1'
-    ARDUINO_BAUDRATE = 9600
-    LIDAR_PORT = '/dev/ttyUSB0'
-    LIDAR_BAUDRATE = 460800 # Corrected to standard baudrate for RPLidar A1/A2
+# --- Control logic ---
+def wall_following(scan, pid_lidar, pid_imu, servo_center, max_adjustment, imu_data):
+    """Compute steering angle using a combination of LiDAR and IMU."""
+    left_distances = [d/1000.0 for q, a, d in scan if 60 <= a <= 90 and d > 100]
+    right_distances = [d/1000.0 for q, a, d in scan if 270 <= a <= 300 and d > 100]
+
+    # Prioritize wall-following with LiDAR
+    if left_distances and right_distances:
+        # Reset IMU PID state when we can rely on LiDAR again
+        pid_imu.reset()
+        
+        avg_left = sum(left_distances) / len(left_distances)
+        avg_right = sum(right_distances) / len(right_distances)
+        error = avg_left - avg_right
+        steer = pid_lidar.calculate_output(error)
+        clamped = max(-1.0, min(steer, 1.0))
+        final_angle = servo_center + (clamped * max_adjustment)
+        return f"A{int(max(80, min(140, final_angle)))}\n"
+    
+    # If LiDAR data is sparse, fall back to using the IMU heading for basic steering
+    elif "H" in imu_data:
+        # Reset LiDAR PID state when we switch to IMU control
+        pid_lidar.reset()
+        
+        current_heading = imu_data["H"]
+        target_heading = 0.0 # Or some other target for straight driving
+        error = target_heading - current_heading
+
+        if error > 180: error -= 360
+        elif error < -180: error += 360
+
+        # Use the IMU PID controller for steering
+        steering_adjustment = pid_imu.calculate_output(error)
+        final_angle = servo_center + steering_adjustment
+        return f"A{int(max(80, min(140, final_angle)))}\n"
+        
+    return None
+
+# --- Main Loop ---
+def main():
+    print("Starting robot control script...")
+
+    # Controllers
+    pid_lidar = PIDController(1.75, 0.001, 1.0) # Tuned for LiDAR wall following
+    pid_imu = PIDController(0.5, 0.0, 0.2) # New PID for IMU-based steering
+
+    # Config
+    SERVO_CENTER = 110
+    MAX_ADJ = 30
+    LIDAR_PORT = "/dev/ttyUSB0"
+    LIDAR_BAUD = 460800
+    ARDUINO_PORT = "/dev/ttyUSB1" # Common port for Arduino, or use "ls /dev/tty*" to find it
+    ARDUINO_BAUD = 9600
+
+    # Connect devices
+    lidar, arduino = None, None
+    while True:
+        try:
+            if lidar is None:
+                print("Connecting LiDAR...")
+                lidar = RPLidar(LIDAR_PORT, baudrate=LIDAR_BAUD)
+                lidar.get_info()
+                print("LiDAR connected")
+            if arduino is None:
+                print("Connecting Arduino...")
+                arduino = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD, timeout=1)
+                time.sleep(2)
+                print("Arduino connected")
+                # Send the "ready" command to light up the LED
+                command = "RL\n"
+                safe_write(arduino, command)
+                print("Sent:", command.strip())
+            break
+        except Exception as e:
+            print(f"Connection error: {e}, retrying...")
+            if lidar:
+                lidar.stop_motor()
+                lidar.disconnect()
+                lidar = None
+            if arduino:
+                arduino.close()
+            arduino = None
+            time.sleep(5)
 
     try:
-        # Connect to RPLidar
-        print(f"Connecting to RPLIDAR on {LIDAR_PORT}...")
-        lidar = RPLidar(LIDAR_PORT, baudrate=LIDAR_BAUDRATE)
-        lidar.get_info()
-
-        # Connect to Arduino
-        print(f"Connecting to Arduino on {ARDUINO_SERIAL_PORT}...")
-        arduino_serial = serial.Serial(ARDUINO_SERIAL_PORT, ARDUINO_BAUDRATE, timeout=1)
-        time.sleep(2)
-
-        # Main loop
-        print("Starting combined control loop...")
+        last_heartbeat_time = time.time()
         for scan in lidar.iter_scans():
-            # Check for lap completion
-            if lap_count >= 3:
-                print("Three laps completed! Stopping the robot.")
-                arduino_serial.write("S\n".encode('utf-8'))
-                break # Exit the main loop
-
-            # Get current time for dt calculation
-            current_time = time.time()
-            dt = current_time - kalman_filter.last_time
-            kalman_filter.last_time = current_time
-
+            # Send a periodic "heartbeat" to the Arduino to show the device is active
+            if time.time() - last_heartbeat_time > 5: # Send heartbeat every 5 seconds
+                safe_write(arduino, "RL\n")
+                last_heartbeat_time = time.time()
+            
             # Read IMU data from Arduino
             imu_data = {}
-            if arduino_serial.in_waiting > 0:
-                line = arduino_serial.readline().decode('utf-8').strip()
-                if line:
-                    imu_data = parse_sensor_data(line)
-            
-            # Read LiDAR data
-            left_distances = []
-            right_distances = []
-            
-            for quality, angle, distance_mm in scan:
-                # Filter for wall-following
-                if 60 <= angle <= 90 and distance_mm > 100:
-                    left_distances.append(distance_mm / 1000.0)
-                if 270 <= angle <= 300 and distance_mm > 100:
-                    right_distances.append(distance_mm / 1000.0)
-
-            # Control Logic
-            command_to_send = ""
-            if left_distances and right_distances:
-                # Use PID for wall-following
-                avg_left = sum(left_distances) / len(left_distances)
-                avg_right = sum(right_distances) / len(right_distances)
-                error = avg_left - avg_right
-                steering_adjustment = pid_controller.calculate_output(error)
+            if arduino.in_waiting:
+                line = arduino.readline().decode("utf-8").strip()
+                imu_data = parse_sensor_data(line)
                 
-                # Map PID output to a servo angle
-                clamped_pid_output = max(-1.0, min(steering_adjustment, 1.0))
-                final_angle = SERVO_CENTER_ANGLE + (clamped_pid_output * SERVO_MAX_ADJUSTMENT)
-                final_angle = max(80, min(140, final_angle))
-                command_to_send = f"A{int(final_angle)}\n"
-                print(f"Wall-following. Error: {error:.2f}, Steer: {steering_adjustment:.2f}, Angle: {final_angle:.0f}")
-            elif 'H' in imu_data and 'GY' in imu_data:
-                # Fallback to Kalman filter for straight-line navigation
-                imu_data['H'] = 360 - imu_data['H']
-                fused_heading = kalman_filter.filter(imu_data['H'], imu_data['GY'], dt)
-                
-                # Turn detection
-                heading_change = abs(fused_heading - last_fused_heading)
-                if heading_change > turn_threshold:
-                    turn_count += 1
-                    last_fused_heading = fused_heading
-                    print(f"Turn detected! Turn count: {turn_count}")
+            # Compute steering angle based on available sensor data
+            command = wall_following(scan, pid_lidar, pid_imu, SERVO_CENTER, MAX_ADJ, imu_data)
 
-                if turn_count >= 4:
-                    lap_count += 1
-                    turn_count = 0
-                    print(f"Lap {lap_count} completed!")
+            # If no valid steering command could be calculated, stop the robot
+            if not command:
+                command = "S\n"
 
-                # Maintain straight line
-                target_heading = 0.0 # Maintain initial heading
-                error = target_heading - fused_heading
-                
-                if error > 180: error -= 360
-                elif error < -180: error += 360
-
-                steering_adjustment = error * 0.5 # Simple P-controller
-                
-                final_angle = SERVO_CENTER_ANGLE + steering_adjustment
-                final_angle = max(80, min(140, final_angle))
-                command_to_send = f"A{int(final_angle)}\n"
-                print(f"IMU fallback. Fused H: {fused_heading:.2f}, Steer: {steering_adjustment:.2f}, Angle: {final_angle:.0f}")
-            else:
-                command_to_send = "S\n"
-                print("No data. Sending STOP command.")
-
-            # Send command to Arduino
-            if command_to_send:
-                arduino_serial.write(command_to_send.encode('utf-8'))
+            safe_write(arduino, command)
 
     except KeyboardInterrupt:
         print("Stopping script...")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    except RPLidarException as e:
+        print(f"LiDAR error: {e}")
     finally:
         if lidar:
             lidar.stop()
+            lidar.stop_motor()
             lidar.disconnect()
-        if arduino_serial:
-            arduino_serial.write("S\n".encode('utf-8'))
-            arduino_serial.close()
+        if arduino and arduino.is_open:
+            safe_write(arduino, "S\n")
+            arduino.close()
+        print("Cleanup done.")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
